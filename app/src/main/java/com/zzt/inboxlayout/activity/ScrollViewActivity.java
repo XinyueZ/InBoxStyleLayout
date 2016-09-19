@@ -2,20 +2,20 @@ package com.zzt.inboxlayout.activity;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.zzt.inbox.interfaces.OnDragStateChangeListener;
+import com.zzt.inbox.widget.InboxBackgroundScrollView;
 import com.zzt.inbox.widget.InboxLayoutBase;
 import com.zzt.inbox.widget.InboxLayoutScrollView;
-import com.zzt.inbox.widget.InboxBackgroundScrollView;
 import com.zzt.inboxlayout.R;
 
 /**
  * Created by zzt on 2015/1/31.
  */
-public class ScrollViewActivity extends ActionBarActivity {
+public class ScrollViewActivity extends AppCompatActivity {
     InboxLayoutScrollView inboxLayoutScrollView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class ScrollViewActivity extends ActionBarActivity {
 
         final InboxBackgroundScrollView inboxBackgroundScrollView = (InboxBackgroundScrollView)findViewById(R.id.scroll);
         inboxLayoutScrollView = (InboxLayoutScrollView)findViewById(R.id.inboxlayout);
-        inboxLayoutScrollView.setBackgroundScrollView(inboxBackgroundScrollView);//绑定scrollview
+        inboxLayoutScrollView.setInboxBackground(inboxBackgroundScrollView);//绑定scrollview
         inboxLayoutScrollView.setCloseDistance(50);
         inboxLayoutScrollView.setOnDragStateChangeListener(new OnDragStateChangeListener() {
             @Override

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#F7F4F0"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.zzt.inbox.widget.InboxBackgroundRecyclerView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="always"
+            android:scrollbars="none">
+        </com.zzt.inbox.widget.InboxBackgroundRecyclerView>
+
+        <com.zzt.inbox.widget.InboxLayoutScrollView
+            android:id="@+id/inboxlayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/filler_text"/>
+        </com.zzt.inbox.widget.InboxLayoutScrollView>
+
+    </FrameLayout>
+</LinearLayout>

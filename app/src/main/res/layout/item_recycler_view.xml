@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ding_dan"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card_avatar_bar">
+
+    <TextView
+        android:id="@+id/expose_item_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="@dimen/keyline_1"
+        android:layout_marginLeft="@dimen/keyline_1"
+        android:layout_marginTop="@dimen/keyline_1"
+        android:layout_weight="1"
+        android:drawableLeft="@drawable/ic_group_order_enable"
+        android:drawablePadding="@dimen/keyline_1"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="@dimen/keyline_1"
+        android:drawablePadding="@dimen/keyline_1"
+        android:drawableRight="@drawable/ic_global_arrow_right_2px"
+        android:text="4"/>
+</LinearLayout>

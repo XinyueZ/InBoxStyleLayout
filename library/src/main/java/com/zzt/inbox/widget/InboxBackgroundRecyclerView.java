@@ -7,20 +7,24 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 
 /**
- * Created by zzt on 2015/1/27.
+ * Created by Xinyue Zhao
  */
-public final class InboxBackgroundScrollView extends ScrollView implements InboxBackground {
+public final class InboxBackgroundRecyclerView extends RecyclerView implements InboxBackground {
+	private static final String TAG = InboxBackgroundRecyclerView.class.getName();
 
 	private boolean mTouchable = true;
 
-	private boolean mNeedToDrawSmallShadow = false;
-	private boolean mNeedToDrawShadow = false;
+	public boolean mNeedToDrawSmallShadow = false;
+	public boolean mNeedToDrawShadow = false;
+
 
 	private static final int MAX_MENU_OVERLAY_ALPHA = 185;
 	private Drawable mTopSmallShadowDrawable;
@@ -29,15 +33,16 @@ public final class InboxBackgroundScrollView extends ScrollView implements Inbox
 	private Drawable mBottomShadow = new ColorDrawable(0xff000000);
 	private int smallShadowHeight;
 
-	public InboxBackgroundScrollView(Context context) {
+
+	public InboxBackgroundRecyclerView(Context context) {
 		this(context, null);
 	}
 
-	public InboxBackgroundScrollView(Context context, AttributeSet attrs) {
+	public InboxBackgroundRecyclerView(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
 	}
 
-	public InboxBackgroundScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
+	public InboxBackgroundRecyclerView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		mTopSmallShadowDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,
 		                                               new int[] { 0x77101010,
@@ -64,6 +69,8 @@ public final class InboxBackgroundScrollView extends ScrollView implements Inbox
 			mTopSmallShadowDrawable.draw(canvas);
 			mBottomSmallShadowDrawable.draw(canvas);
 		}
+		drawTopShadow(0, 0, 0);
+		drawBottomShadow(0, 0, 0);
 	}
 
 	@Override
@@ -114,7 +121,6 @@ public final class InboxBackgroundScrollView extends ScrollView implements Inbox
 		                            .getDisplayMetrics().density);
 	}
 
-
 	@Override
 	public void setNeedToDrawSmallShadow(boolean needToDrawSmallShadow) {
 		mNeedToDrawSmallShadow = needToDrawSmallShadow;
@@ -126,6 +132,52 @@ public final class InboxBackgroundScrollView extends ScrollView implements Inbox
 	}
 
 
+	private int mSelectedPosition;
+	private int mSelectedOffset;
+	private boolean mInboxExpanded;
+	private int mStep;
+
+	@Override
+	public void scrollTo(int x, int y) {
+		if (mSelectedOffset == 0) {
+			return;
+		}
+//		Log.d(TAG, "mSelectedOffset: " + mSelectedOffset + " height: " + getHeight() + " scrollTo Y: " + y);
+		float offset;
+		float factor;
+		if (!mInboxExpanded) {
+			//Expand
+			factor = y / (mSelectedOffset + 1f);
+			offset = mSelectedOffset - mSelectedOffset * factor;
+			mStep++;
+			if (mSelectedOffset == y) {
+				mInboxExpanded = true;
+			}
+//			Log.d(TAG, "factor: " + factor + ", step:" + mStep);
+		} else {
+			//Close
+			factor = mSelectedOffset == 0 ?
+			         mSelectedOffset :
+			         (mSelectedOffset / mStep) / mSelectedOffset;
+			offset = mSelectedOffset - mSelectedOffset * factor;
+			mStep--;
+			if (mSelectedOffset == offset) {
+				mInboxExpanded = false;
+				mStep = 0;
+			}
+//			Log.d(TAG, "factor: " + factor + ", step:" + mStep);
+		}
+//		Log.d(TAG, "offset: " + (int) offset + ", mInboxExpanded: " + mInboxExpanded);
+		((LinearLayoutManager) getLayoutManager()).scrollToPositionWithOffset(mSelectedPosition, (int) offset);
+	}
+
+
+	public final void setSelectedPosition(int selectedPosition) {
+		mSelectedPosition = selectedPosition;
+		View v = getLayoutManager().findViewByPosition(selectedPosition);
+		mSelectedOffset = v.getTop();
+	}
+
 	@NonNull
 	@Override
 	public ViewGroup toViewGroup() {
@@ -133,7 +185,30 @@ public final class InboxBackgroundScrollView extends ScrollView implements Inbox
 	}
 
 	@Override
+	public void scrollBy(int x, int y) {
+		if (mSelectedPosition > 0) {
+			super.scrollBy(x, y);
+		} else {
+			switch (mCurrentMode) {
+				case PULL_FROM_START:
+					if (y < 0) {
+						super.scrollBy(x, y);
+					} else {
+						super.scrollBy(x, -y);
+					}
+					break;
+				default:
+					super.scrollBy(x, y);
+					break;
+			}
+
+		}
+	}
+
+	private InboxLayoutBase.Mode mCurrentMode;
+
+	@Override
 	public void setCurrentMode(InboxLayoutBase.Mode mode) {
-		//No impl
+		mCurrentMode = mode;
 	}
 }

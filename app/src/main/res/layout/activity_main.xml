@@ -9,4 +9,7 @@
     <Button android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" android:text="ScrollView"/>
+    <Button android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:text="Recycler"/>
 </LinearLayout>
