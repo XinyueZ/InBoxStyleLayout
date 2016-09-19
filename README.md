@@ -7,11 +7,11 @@ The InBoxLayoutXXXX can still be used for showing detail.
 
 # ScreenShot
 
-![image](https://github.com/XinyueZ/InBoxStyleLayout/tree/master/screenshot/recycler-sample.gif)
+![image](/screenshot/recycler-sample.gif)
 
-![image](https://github.com/XinyueZ/InBoxStyleLayout/tree/master/screenshot/pic.gif)
+![image](/screenshot/pic.gif)
 
-![image](https://github.com/XinyueZ/InBoxStyleLayout/tree/master/screenshot/pic1.gif)
+![image](/screenshot/pic1.gif)
 
 # Usage
 ###step 1 
