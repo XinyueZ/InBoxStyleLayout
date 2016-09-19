@@ -1,10 +1,9 @@
 # InboxLayout
-模仿Google Inbox邮箱的上下拉返回效果
+Like Google Inbox effect to open-close list and detail by dragging up/down.
 
-让你的app加入真正方便的手势操作
+This version supports RecyclerView as "background" which shows list of items.
 
-使用InboxLayout前最好来这里看看有没有更新~~~
-
+The InBoxLayoutXXXX can still be used for showing detail.
 
 # ScreenShot
 ![image](https://raw.githubusercontent.com/zhaozhentao/InboxLayout/master/screenshot/pic.gif)
@@ -12,8 +11,7 @@
 ![image](https://github.com/zhaozhentao/InboxLayout/blob/master/screenshot/pic1.gif)
 
 # Usage
-###step 1
-实现类似的布局, 具体可参考demo
+###step 1 
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -28,7 +26,7 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <!--在这里布局主界面要显示的内容-->
+                
             </LinearLayout>
         </com.zzt.inbox.widget.InboxScrollView>
         
@@ -44,7 +42,7 @@
 
     final InboxScrollView inboxScrollView = (InboxScrollView)findViewById(R.id.scroll);
     inboxLayout = (InboxLayout)findViewById(R.id.inboxlayout);             
-    inboxLayout.seBackgroundScrollView(inboxScrollView); //将inboxScrollView 与 inboxlayout绑定,由inboxlayout带动inboxScrollView滚动
+    inboxLayout.seBackgroundScrollView(inboxScrollView);  
     
     
 ###step 3
@@ -53,10 +51,11 @@
     dingdan.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        inboxLayout.openWithAnim(dingdan);//给inboxLayout传入open时需要隐藏的view
+        inboxLayout.openWithAnim(dingdan); 
       }
     });
 
-# Last
-InboxLayout目前支持底部为scrollview 顶部为listview和scrollview的情况,适用于大部分场景
+##### Thanks
+
+For good start thanks [zhaozhentao](https://raw.githubusercontent.com/zhaozhentao/)
 
