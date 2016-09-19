@@ -7,10 +7,8 @@ The InBoxLayoutXXXX can still be used for showing detail.
 
 # ScreenShot
 
-
-
-| :------| ------: | :------: |
-| ![image](/screenshot/recycler-sample.gif) | ![image](/screenshot/pic.gif)| ![image](/screenshot/pic1.gif) |
+ 
+ ![image](/screenshot/recycler-sample.gif)   ![image](/screenshot/pic.gif)  ![image](/screenshot/pic1.gif) 
  
 
 
